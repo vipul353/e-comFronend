@@ -1,5 +1,6 @@
 .cart-page {
   margin-top: 64px;
+  overflow: hidden;
 }
 
 .cart-page h1 {
