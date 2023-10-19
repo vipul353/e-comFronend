@@ -58,10 +58,11 @@ const HomePage = () => {
       console.log(error);
     }
   };
-
+ 
   useEffect(() => {
     if (page === 1) return;
     loadMore();
+   // eslint-disable-next-line  
   }, [page]);
   //load more
   const loadMore = async () => {
@@ -88,10 +89,12 @@ const HomePage = () => {
   };
   useEffect(() => {
     if (!checked.length || !radio.length) getAllProducts();
+     // eslint-disable-next-line
   }, [checked.length, radio.length]);
 
   useEffect(() => {
     if (checked.length || radio.length) filterProduct();
+     // eslint-disable-next-line
   }, [checked, radio]);
 
   //get filterd product

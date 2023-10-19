@@ -4,13 +4,13 @@ import { useCart } from "../context/cart";
 import { useAuth } from "../context/auth";
 import { useNavigate } from "react-router-dom";
 import DropIn from "braintree-web-drop-in-react";
-import { AiFillWarning } from "react-icons/ai";
+// import { AiFillWarning } from "react-icons/ai";
 import axios from "axios";
 import toast from "react-hot-toast";
 import "../styles/CartStyles.css";
 
 const CartPage = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const [cart, setCart] = useCart();
   const [clientToken, setClientToken] = useState("");
   const [instance, setInstance] = useState("");
@@ -21,6 +21,7 @@ const CartPage = () => {
   const totalPrice = () => {
     try {
       let total = 0;
+       // eslint-disable-next-line
       cart?.map((item) => {
         total = total + item.price;
       });
@@ -62,11 +63,11 @@ const CartPage = () => {
   const handlePayment = async () => {
     try {
       setLoading(true);
-      const { nonce } = await instance.requestPaymentMethod();
-      const { data } = await axios.post("/api/v1/product/braintree/payment", {
-        nonce,
-        cart,
-      });
+      // const { nonce } = await instance.requestPaymentMethod();
+      // const { data } = await axios.post("/api/v1/product/braintree/payment", {
+      //   nonce,
+      //   cart,
+      // });
       setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);
