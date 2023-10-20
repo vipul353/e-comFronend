@@ -1,5 +1,6 @@
 .cart-page {
   margin-top: 64px;
+  min-height: 605px;
   overflow: hidden;
 }
 
@@ -19,6 +20,14 @@
   height: 150px !important;
   margin-bottom: 5px !important;
 }
+
+
+.container-row{
+  display: flex;
+  flex-direction: row;
+}
+
+
 .cart-page .cart-remove-btn {
   display: flex;
   align-items: center;
@@ -27,4 +36,17 @@
 .cart-page .cart-summary {
   text-align: center;
   /* margin-top: -140px !important; */
+}
+
+
+@media screen and (max-width:450px) {
+  .cart-page{
+    min-height: 880px;
+    overflow: hidden;
+  }
+  
+  .container-row{
+    flex-direction: column !important;
+  }
+  
 }
