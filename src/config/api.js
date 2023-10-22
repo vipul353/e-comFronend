@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-const DEPLOYED='https://pear-poised-hen.cyclic.app/'
+const DEPLOYED='https://ecom-iins.onrender.com'
 // eslint-disable-next-line
 const LOCALHOST='http://localhost:5454'
 
