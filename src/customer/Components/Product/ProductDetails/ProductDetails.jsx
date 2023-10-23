@@ -2,8 +2,11 @@ import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { useNavigate, useParams } from "react-router-dom";
 // import ProductReviewCard from "./ProductReviewCard";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button,  Rating } from "@mui/material";
 import HomeProductCard from "../../Home/HomeProductCard";
+import AuthModal from "../../Auth/AuthModal";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { findProductById } from "../../../../Redux/Customers/Product/Action";
@@ -70,19 +73,37 @@ export default function ProductDetails() {
   const [activeImage, setActiveImage] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { customersProduct} = useSelector((store) => store);
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+  // const { auth,cart } = useSelector((store) => store);
+  const { customersProduct,auth} = useSelector((store) => store);
   const { productId } = useParams();
   const jwt = localStorage.getItem("jwt");
   // console.log("param",productId,customersProduct.product)
+  const handleOpen = () => {
+    setOpenAuthModal(true);
+  };
+  const handleClose = () => {
+    setOpenAuthModal(false);
+   
+  };
 
   const handleSetActiveImage = (image) => {
     setActiveImage(image);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+   if (auth.user) {
     const data = { productId, size: selectedSize.name };
     dispatch(addItemToCart({ data, jwt }));
     navigate("/cart");
+   }else{
+    handleOpen()
+    // toast.error('please login or Register !', {
+    //   position: toast.POSITION.TOP_CENTER,
+    //   autoClose: 5000, // Optional: close the toast after 5 seconds
+    // });
+   } 
   };
 
   useEffect(() => {
@@ -210,7 +231,7 @@ export default function ProductDetails() {
                 </div>
               </div>
 
-              <form className="mt-10" onSubmit={handleSubmit}>
+              <form className="mt-10" onSubmit={(e)=>{handleSubmit(e)}}>
                 {/* Sizes */}
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
@@ -505,6 +526,7 @@ export default function ProductDetails() {
           </div>
         </section>
       </div>
+      <AuthModal handleClose={handleClose} open={openAuthModal} />
     </div>
   );
 }
